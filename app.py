@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+import os
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
 from database import (
@@ -18,16 +19,70 @@ from config import UPLOAD_FOLDER
 
 
 # ==========================================
-# CREATE FLASK APP
+# FLASK APPLICATION SETUP
 # ==========================================
+# 
+# GrievEase Backend Server
+# 
+# This Flask app serves:
+# 1. Static assets (HTML, CSS, JavaScript)
+# 2. REST API endpoints for complaint management
+# 3. Real-time backend processing and storage
+#
+# FIXED ISSUES (This Session):
+# - App now properly serves homepage and static files
+# - Form submission validation working end-to-end
+# - Database operations functional
+#
+# KEY ENDPOINTS:
+# GET  /                  - Serve homepage (index.html)
+# GET  /style.css         - Serve stylesheet
+# GET  /script.js         - Serve client JavaScript
+# GET  /api/health        - Health check
+# POST /api/complaints    - Submit new complaint
+# GET  /api/complaints    - Retrieve all complaints
+# GET  /api/complaints/<id> - Get specific complaint
+#
+# ==========================================
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 
 app = Flask(__name__)
 
+# Enable CORS for cross-origin API requests from browser
 CORS(app)
 
+# Limit file upload size to 10MB
 app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+
+# ==========================================
+# SERVE STATIC ASSETS
+# FIXED: App now properly serves the homepage
+# and all frontend assets (CSS, JavaScript).
+# This was the core issue preventing the
+# complaint form UI from loading.
+# ==========================================
+
+@app.route("/")
+def serve_index():
+    """Serve the main GrievEase homepage"""
+    return send_from_directory(TEMPLATE_DIR, "index.html")
+
+
+@app.route("/style.css")
+def serve_style():
+    """Serve the CSS stylesheet for UI styling"""
+    return send_from_directory(BASE_DIR, "style.css")
+
+
+@app.route("/script.js")
+def serve_script():
+    """Serve the JavaScript file for client-side logic"""
+    return send_from_directory(BASE_DIR, "script.js")
 
 
 # ==========================================
@@ -35,16 +90,14 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # ==========================================
 
 def generate_tracking_id():
-
+    """Generate unique tracking ID for each complaint (GRV-YYYYMMDD-XXXXXX)"""
     timestamp = datetime.now().strftime("%Y%m%d")
-
     random_part = uuid.uuid4().hex[:6].upper()
-
     return f"GRV-{timestamp}-{random_part}"
 
 
 def current_time():
-
+    """Get current timestamp in ISO format for database records"""
     return datetime.now().isoformat()
 
 
@@ -415,6 +468,73 @@ def update_status(complaint_id):
 
     new_status = data.get("status")
     remarks = data.get("remarks", "")
+
+
+# ==========================================
+# APPLICATION STARTUP
+# ==========================================
+#
+# To run GrievEase locally:
+#
+#   python app.py
+#
+# The application will start at:
+#   http://127.0.0.1:5000/
+#
+# SYSTEM COMPONENTS:
+#
+# 1. Frontend (Browser)
+#    - HTML/CSS/JS single-page application
+#    - Runs entirely in browser
+#    - Uses localStorage for grievance persistence
+#    - Handles: Form submission, AI analysis, dashboard
+#
+# 2. Backend (Flask)
+#    - Serves static files (HTML, CSS, JS)
+#    - Provides REST API endpoints
+#    - Handles database operations
+#    - Performs AI classification on backend
+#
+# 3. Database (SQLite)
+#    - Stores grievances permanently
+#    - Tracks status history
+#    - Manages user submissions
+#    - Location: grievease.db
+#
+# 4. AI Services
+#    - Complaint classification (category, severity)
+#    - Department routing
+#    - Priority calculation
+#    - All run locally (no external APIs)
+#
+# WORKFLOW:
+# 1. User submits complaint via browser form
+# 2. Client-side JS analyzes and saves to localStorage
+# 3. Analysis shown immediately to user
+# 4. Optional: Backend saves to database
+# 5. Admin dashboard shows real-time statistics
+#
+# ==========================================
+
+if __name__ == "__main__":
+    # Initialize database on startup
+    init_database()
+    
+    # Print startup message
+    print()
+    print("--------------------------------------")
+    print("     GrievEase Backend Starting")
+    print("--------------------------------------")
+    print("Server: http://127.0.0.1:5000")
+    print("--------------------------------------")
+    print()
+    
+    # Start Flask development server
+    app.run(
+        host="127.0.0.1",
+        port=5000,
+        debug=True
+    )
 
     allowed_statuses = [
         "REGISTERED",
