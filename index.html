@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>GrievEase | Smart Grievance Management</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            G
+        </div>
+
+        <div>
+            <h2>GrievEase</h2>
+
+            <span>
+                Smart Grievance Management
+            </span>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#submit">
+            Submit
+        </a>
+
+        <a href="#track">
+            Track
+        </a>
+
+        <a href="#dashboard">
+            Dashboard
+        </a>
+
+    </nav>
+
+
+    <button
+        class="nav-button"
+        onclick="goToSubmit()"
+    >
+        Report Problem
+    </button>
+
+</header>
+
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section
+    id="home"
+    class="hero"
+>
+
+    <div class="hero-text">
+
+        <div class="badge">
+            AI-POWERED • TRANSPARENT • FAST
+        </div>
+
+
+        <h1>
+            Every grievance deserves
+            <span>the right action.</span>
+        </h1>
+
+
+        <p>
+
+            GrievEase uses intelligent classification,
+            duplicate detection and smart routing to
+            send every complaint to the right department.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <button
+                class="primary-button"
+                onclick="goToSubmit()"
+            >
+
+                Submit a Grievance
+
+            </button>
+
+
+            <button
+                class="secondary-button"
+                onclick="goToTrack()"
+            >
+
+                Track Complaint
+
+            </button>
+
+        </div>
+
+
+        <div class="hero-points">
+
+            <span>
+                ✓ No login required
+            </span>
+
+            <span>
+                ✓ GPS enabled
+            </span>
+
+            <span>
+                ✓ Photo evidence
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-card">
+
+        <div class="hero-card-header">
+
+            <span>
+                Live Processing
+            </span>
+
+            <span class="online-dot">
+                ●
+            </span>
+
+        </div>
+
+
+        <div class="pipeline">
+
+            <div class="pipeline-item active">
+
+                <div class="pipeline-number">
+                    1
+                </div>
+
+                <div>
+
+                    <strong>
+                        Complaint submitted
+                    </strong>
+
+                    <small>
+                        Text + Photo + GPS
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-line"></div>
+
+
+            <div class="pipeline-item">
+
+                <div class="pipeline-number">
+                    2
+                </div>
+
+                <div>
+
+                    <strong>
+                        AI classification
+                    </strong>
+
+                    <small>
+                        Department + Severity
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-line"></div>
+
+
+            <div class="pipeline-item">
+
+                <div class="pipeline-number">
+                    3
+                </div>
+
+                <div>
+
+                    <strong>
+                        Duplicate detection
+                    </strong>
+
+                    <small>
+                        Similar complaints
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-line"></div>
+
+
+            <div class="pipeline-item">
+
+                <div class="pipeline-number">
+                    4
+                </div>
+
+                <div>
+
+                    <strong>
+                        Smart routing
+                    </strong>
+
+                    <small>
+                        Department + SLA
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="features-section">
+
+    <div class="section-heading">
+
+        <span>
+            HOW IT WORKS
+        </span>
+
+        <h2>
+            From complaint to resolution
+        </h2>
+
+        <p>
+            A transparent pipeline that keeps citizens
+            and departments informed.
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📷
+            </div>
+
+            <h3>
+                Capture Evidence
+            </h3>
+
+            <p>
+                Take a live photo of the problem and
+                capture its location using GPS.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Classification
+            </h3>
+
+            <p>
+                Automatically identify category,
+                department and severity.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🔎
+            </div>
+
+            <h3>
+                Duplicate Detection
+            </h3>
+
+            <p>
+                Find similar open complaints from
+                the same area.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                ⏱️
+            </div>
+
+            <h3>
+                SLA Monitoring
+            </h3>
+
+            <p>
+                Track deadlines and escalate overdue
+                complaints automatically.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SUBMIT GRIEVANCE
+===================================================== -->
+
+<section
+    id="submit"
+    class="main-section"
+>
+
+
+    <div class="section-heading">
+
+        <span>
+            CITIZEN PORTAL
+        </span>
+
+        <h2>
+            Report a Problem
+        </h2>
+
+        <p>
+            You don't need to know which department
+            handles your problem.
+        </p>
+
+    </div>
+
+
+
+    <div class="form-container">
+
+
+        <form
+            id="grievanceForm"
+        >
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Your Name
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- LANGUAGE -->
+
+            <div class="form-group">
+
+                <label>
+                    Language
+                </label>
+
+                <select id="language">
+
+                    <option value="English">
+                        English
+                    </option>
+
+                    <option value="Hindi">
+                        हिंदी
+                    </option>
+
+                    <option value="Kannada">
+                        ಕನ್ನಡ
+                    </option>
+
+                    <option value="Marathi">
+                        मराठी
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- CATEGORY -->
+
+            <div class="form-group">
+
+                <label>
+                    Problem Category
+                </label>
+
+                <select
+                    id="category"
+                    required
+                >
+
+                    <option value="">
+                        Let AI determine category
+                    </option>
+
+                    <option value="Road">
+                        Roads / Pothole
+                    </option>
+
+                    <option value="Water">
+                        Water / Drainage
+                    </option>
+
+                    <option value="Electricity">
+                        Electricity / Streetlight
+                    </option>
+
+                    <option value="Waste">
+                        Waste Management
+                    </option>
+
+                    <option value="Hostel">
+                        Hostel
+                    </option>
+
+                    <option value="Mess">
+                        Mess / Food
+                    </option>
+
+                    <option value="Academic">
+                        Academic
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- TITLE -->
+
+            <div class="form-group">
+
+                <label>
+                    Problem Title
+                </label>
+
+                <input
+                    type="text"
+                    id="problemTitle"
+                    placeholder="Example: Large pothole near main gate"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group">
+
+                <label>
+                    Describe the Problem
+                </label>
+
+                <textarea
+                    id="description"
+                    rows="6"
+                    minlength="20"
+                    placeholder="Please describe the problem in detail. Include location, how long it has existed and how it affects people."
+                    required
+                ></textarea>
+<div class="voice-section">
+    <button type="button" id="micButton">🎤 Speak Your Complaint</button>
+    <p id="voiceStatus">Click the microphone and speak.</p>
+</div>
+
+                <small class="hint">
+                    Please provide at least 20 characters
+                    for better classification.
+                </small>
+
+            </div>
+
+
+
+            <!-- CAMERA -->
+
+            <div class="camera-section">
+
+                <label>
+                    Photo Evidence
+                </label>
+
+
+                <div
+                    id="cameraBox"
+                    class="camera-box"
+                >
+
+                    <video
+                        id="camera"
+                        autoplay
+                        playsinline
+                    ></video>
+
+
+                    <div
+                        id="cameraPlaceholder"
+                        class="camera-placeholder"
+                    >
+
+                        <div class="camera-icon">
+                            📷
+                        </div>
+
+                        <p>
+                            Camera is not active
+                        </p>
+
+                        <small>
+                            Click "Start Camera" to take
+                            a photo of the problem
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="camera-buttons">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        onclick="startCamera()"
+                    >
+                        Start Camera
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        onclick="takePhoto()"
+                    >
+                        📷 Take Photo
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="danger-button"
+                        onclick="stopCamera()"
+                    >
+                        Stop
+                    </button>
+
+                </div>
+
+
+                <canvas
+                    id="photoCanvas"
+                    hidden
+                ></canvas>
+
+
+                <div
+                    id="photoPreviewContainer"
+                    class="photo-preview-container"
+                >
+
+                    <img
+                        id="photoPreview"
+                        alt="Captured evidence"
+                    >
+
+                    <div>
+
+                        <strong>
+                            Photo captured
+                        </strong>
+
+                        <p>
+                            Evidence attached to grievance.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- GPS -->
+
+            <div class="location-section">
+
+                <label>
+                    Problem Location
+                </label>
+
+
+                <div class="location-box">
+
+                    <div class="location-icon">
+                        📍
+                    </div>
+
+
+                    <div class="location-information">
+
+                        <strong>
+                            GPS Location
+                        </strong>
+
+                        <p id="locationText">
+                            Location not captured
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        onclick="getLocation()"
+                    >
+                        Capture GPS
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="submit-button"
+            >
+
+                Submit Grievance
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     AI ANALYSIS RESULT
+===================================================== -->
+
+<section
+    id="analysis"
+    class="main-section analysis-section hidden"
+>
+
+
+    <div class="section-heading">
+
+        <span>
+            AI PROCESSING
+        </span>
+
+        <h2>
+            Grievance Analysis
+        </h2>
+
+    </div>
+
+
+    <div class="analysis-loading" id="analysisLoading">
+
+        <div class="loader"></div>
+
+        <h3>
+            AI is analyzing your grievance...
+        </h3>
+
+        <p>
+            Checking category, severity, duplicate
+            complaints and routing department.
+        </p>
+
+    </div>
+
+
+    <div
+        id="analysisResult"
+        class="analysis-result hidden"
+    >
+
+
+        <div class="success-message">
+
+            ✓ Grievance successfully processed
+
+        </div>
+
+
+        <div class="result-grid">
+
+
+            <div class="result-card">
+
+                <span>
+                    GRIEVANCE ID
+                </span>
+
+                <strong id="resultId">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    DEPARTMENT
+                </span>
+
+                <strong id="resultDepartment">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    CATEGORY
+                </span>
+
+                <strong id="resultCategory">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    SEVERITY
+                </span>
+
+                <strong
+                    id="resultSeverity"
+                    class="severity-badge"
+                >
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    AI CONFIDENCE
+                </span>
+
+                <strong id="resultConfidence">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    SLA
+                </span>
+
+                <strong id="resultSLA">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DUPLICATE -->
+
+        <div class="duplicate-box">
+
+            <h3>
+                🔎 Duplicate Detection
+            </h3>
+
+            <div id="duplicateResult">
+                Checking...
+            </div>
+
+        </div>
+
+
+
+        <!-- HUMAN REVIEW -->
+
+        <div
+            id="humanReview"
+            class="review-box hidden"
+        >
+
+            <h3>
+                ⚠️ Human Review Required
+            </h3>
+
+            <p>
+                The system has low confidence in the
+                automatic classification. The grievance
+                has been placed in the human review queue
+                instead of being blindly routed.
+            </p>
+
+        </div>
+
+
+
+        <button
+            class="primary-button"
+            onclick="goToTrack()"
+        >
+
+            Track This Grievance
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TRACKING
+===================================================== -->
+
+<section
+    id="track"
+    class="main-section tracking-section"
+>
+
+
+    <div class="section-heading">
+
+        <span>
+            CITIZEN TRACKING
+        </span>
+
+        <h2>
+            Track Your Grievance
+        </h2>
+
+        <p>
+            Enter your grievance ID to see the latest
+            status and SLA.
+        </p>
+
+    </div>
+
+
+    <div class="tracking-search">
+
+        <input
+            type="text"
+            id="trackingInput"
+            placeholder="Example: GE-2026-123456"
+        >
+
+
+        <button
+            class="primary-button"
+            onclick="trackGrievance()"
+        >
+            Track
+        </button>
+
+    </div>
+
+
+    <div
+        id="trackingResult"
+        class="tracking-result"
+    >
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+===================================================== -->
+
+<section
+    id="dashboard"
+    class="dashboard-section"
+>
+
+
+    <div class="section-heading">
+
+        <span>
+            DEPARTMENT DASHBOARD
+        </span>
+
+        <h2>
+            Priority Grievance Queue
+        </h2>
+
+        <p>
+            Monitor severity, SLA and resolution status.
+        </p>
+
+    </div>
+
+
+
+    <!-- STATS -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <span>
+                TOTAL
+            </span>
+
+            <strong id="totalComplaints">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card critical-stat">
+
+            <span>
+                CRITICAL
+            </span>
+
+            <strong id="criticalComplaints">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card pending-stat">
+
+            <span>
+                PENDING
+            </span>
+
+            <strong id="pendingComplaints">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card resolved-stat">
+
+            <span>
+                RESOLVED
+            </span>
+
+            <strong id="resolvedComplaints">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FILTER -->
+
+    <div class="dashboard-filter">
+
+        <select
+            id="statusFilter"
+            onchange="renderDashboard()"
+        >
+
+            <option value="All">
+                All Status
+            </option>
+
+            <option value="Submitted">
+                Submitted
+            </option>
+
+            <option value="Verified">
+                Verified
+            </option>
+
+            <option value="Assigned">
+                Assigned
+            </option>
+
+            <option value="In Progress">
+                In Progress
+            </option>
+
+            <option value="Resolved">
+                Resolved
+            </option>
+
+        </select>
+
+
+        <select
+            id="severityFilter"
+            onchange="renderDashboard()"
+        >
+
+            <option value="All">
+                All Severity
+            </option>
+
+            <option value="CRITICAL">
+                Critical
+            </option>
+
+            <option value="HIGH">
+                High
+            </option>
+
+            <option value="MEDIUM">
+                Medium
+            </option>
+
+            <option value="LOW">
+                Low
+            </option>
+
+        </select>
+
+    </div>
+
+
+
+    <div
+        id="dashboardList"
+        class="dashboard-list"
+    >
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-logo">
+        GrievEase
+    </div>
+
+    <p>
+        AI-Powered Public Grievance Prioritization &
+        Smart Routing System
+    </p>
+
+    <p class="footer-small">
+        Built for Smart India Hackathon 2026
+    </p>
+
+</footer>
+
+
+
+<!-- JAVASCRIPT -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
