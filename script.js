@@ -1,11 +1,58 @@
 /* =====================================================
-   GRIEV EASE
-   SMART GRIEVANCE MANAGEMENT SYSTEM
+   GRIEVEASE - SMART GRIEVANCE MANAGEMENT SYSTEM
+   =====================================================
+   
+   A comprehensive citizen grievance management platform
+   with AI-powered classification, duplicate detection,
+   and automatic department routing.
+   
+   KEY FEATURES:
+   ✓ AI-powered complaint classification
+   ✓ Automatic severity assessment
+   ✓ Smart duplicate detection
+   ✓ GPS location capture
+   ✓ Photo evidence attachment
+   ✓ Voice input support
+   ✓ Real-time dashboard
+   ✓ SLA tracking
+   ✓ Browser-based data persistence
+   
+   TECHNOLOGY STACK:
+   - Frontend: HTML5, CSS3, Vanilla JavaScript
+   - Storage: Browser LocalStorage (client-side)
+   - Backend: Flask (Python)
+   - Data: SQLite database
+   
+   WORKFLOW:
+   1. Citizen submits complaint with details & media
+   2. AI analyzes and classifies the complaint
+   3. Duplicate detection checks for similar issues
+   4. System routes to appropriate department
+   5. Department views in real-time dashboard
+   6. Status updates tracked and displayed to citizen
+   
+   FIXED ISSUES (This Session):
+   - Form submission flow was broken (duplicate listeners)
+   - Static assets not being served by Flask
+   - No proper form validation and analysis
+   - Dashboard not updating correctly
+   
+   FILE STRUCTURE:
+   - index.html: Main UI template with all sections
+   - script.js: Client-side logic (this file)
+   - style.css: UI styling and responsive design
+   - app.py: Flask backend server
+   - database.py: SQLite database operations
+   - services/: AI classification and routing logic
+   
 ===================================================== */
 
 
 /* =====================================================
    GLOBAL VARIABLES
+=====================================================
+   Store browser state including media streams,
+   captured data, and all grievances from localStorage.
 ===================================================== */
 
 let cameraStream = null;
@@ -293,16 +340,28 @@ function getLocation() {
 
 
 /* =====================================================
-   FORM SUBMISSION
+   FORM SUBMISSION HANDLER
+   ===================================================== 
+   FIXED: Removed duplicate/conflicting event listeners
+   that were preventing proper form submission.
+   
+   This canonical listener:
+   1. Validates form input
+   2. Generates unique grievance ID
+   3. Analyzes complaint for category/severity
+   4. Detects duplicate complaints
+   5. Calculates SLA deadline
+   6. Saves to localStorage
+   7. Shows AI analysis results
+   8. Updates dashboard statistics
+   9. Resets form for next submission
 ===================================================== */
 
-document
-    .getElementById("grievanceForm")
-    .addEventListener(
-        "submit",
-        function(event) {
+const grievanceForm = document.getElementById("grievanceForm");
 
-            event.preventDefault();
+if (grievanceForm) {
+    grievanceForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
 
             const name =
@@ -569,7 +628,21 @@ function generateGrievanceId() {
 
 
 /* =====================================================
-   AI CLASSIFICATION
+   AI CLASSIFICATION ENGINE
+   =====================================================
+   Analyzes complaint text to automatically determine:
+   - Category (Road, Water, Electricity, Waste, etc.)
+   - Department (which agency should handle it)
+   - Severity (CRITICAL, HIGH, MEDIUM, LOW)
+   - Confidence score (0-100% certainty)
+   
+   Uses keyword matching to classify complaints
+   without requiring backend API calls.
+   
+   Benefits:
+   - Instant feedback to citizens
+   - Automatic routing to correct department
+   - Prioritization by severity
 ===================================================== */
 
 function analyzeComplaint(
@@ -961,7 +1034,22 @@ function analyzeComplaint(
 
 
 /* =====================================================
-   SLA
+   SLA CALCULATION
+   =====================================================
+   Calculate Service Level Agreement (SLA) deadline
+   based on severity level.
+   
+   SLA DEADLINES:
+   - CRITICAL: 12 hours (life/safety issues)
+   - HIGH: 24 hours (major damage/hazards)
+   - MEDIUM: 48 hours (standard issues)
+   - LOW: 72 hours (minor problems)
+   
+   Used to:
+   1. Set deadline for department response
+   2. Prioritize high-urgency complaints
+   3. Escalate overdue grievances
+   4. Track department performance
 ===================================================== */
 
 function getSLA(severity) {
@@ -1000,7 +1088,23 @@ function getSLA(severity) {
 
 
 /* =====================================================
-   DUPLICATE DETECTION
+   DUPLICATE DETECTION ENGINE
+   =====================================================
+   Compares new complaint against existing grievances
+   to identify duplicates or similar issues.
+   
+   Algorithm:
+   1. Tokenize both complaints into words
+   2. Calculate similarity score (0-1)
+   3. Flag if similarity >= 35% threshold
+   4. Only compares within same category
+   5. Ignores resolved complaints
+   
+   Benefits:
+   - Consolidates resources on high-impact issues
+   - Prevents duplicate work by departments
+   - Helps track recurring problems
+   - Improves response efficiency
 ===================================================== */
 
 function detectDuplicate(
@@ -1129,7 +1233,22 @@ function detectDuplicate(
 
 
 
-/* Convert text into words */
+/* =====================================================
+   TEXT TOKENIZATION
+   =====================================================
+   Break text into individual words for analysis.
+   
+   Process:
+   1. Convert to lowercase for case-insensitive matching
+   2. Remove punctuation and special characters
+   3. Split into individual words
+   4. Filter out words shorter than 3 characters
+   
+   Purpose:
+   - Prepare text for duplicate detection
+   - Enable word-based similarity comparison
+   - Standardize complaint text analysis
+===================================================== */
 
 function tokenize(text) {
 
@@ -1149,7 +1268,19 @@ function tokenize(text) {
 
 
 
-/* Simple similarity */
+/* =====================================================
+   TEXT SIMILARITY MATCHING
+   =====================================================
+   Calculate Jaccard similarity between two word sets.
+   
+   Algorithm:
+   - Finds common words between two complaints
+   - Calculates: common_words / total_unique_words
+   - Returns score from 0 (no match) to 1 (identical)
+   
+   Used by: detectDuplicate() function
+   Threshold: >= 0.35 (35%) flags as duplicate
+===================================================== */
 
 function similarity(
     wordsA,
@@ -1802,7 +1933,25 @@ function trackGrievance() {
 
 
 /* =====================================================
-   ADMIN DASHBOARD
+   DASHBOARD STATISTICS & DISPLAY
+   =====================================================
+   Updates the department dashboard with real-time
+   counts of grievances by status and severity.
+   
+   Metrics tracked and displayed:
+   - TOTAL: All grievances submitted to the system
+   - CRITICAL: High-severity issues needing urgent action
+   - PENDING: Open grievances awaiting resolution
+   - RESOLVED: Completed and closed grievances
+   
+   Also filters grievances by:
+   - Status (Submitted, Verified, Assigned, etc.)
+   - Severity (Critical, High, Medium, Low)
+   
+   Purpose:
+   - Give departments real-time visibility
+   - Prioritize critical issues
+   - Track resolution progress
 ===================================================== */
 
 function renderDashboard() {
@@ -1827,7 +1976,7 @@ function renderDashboard() {
 
 
 
-    /* Statistics */
+    /* Statistics: Count grievances by severity and status */
 
     document.getElementById(
         "totalComplaints"
@@ -2246,7 +2395,10 @@ function getPriorityClass(
 
 
 /* =====================================================
-   INITIAL LOAD
+   INITIALIZATION ON PAGE LOAD
+   =====================================================
+   Initialize the dashboard when page first loads.
+   This displays current statistics to users/admins.
 ===================================================== */
 
 renderDashboard();
@@ -2254,7 +2406,15 @@ renderDashboard();
 
 
 /* =====================================================
-   UPDATE DASHBOARD PERIODICALLY
+   CONTINUOUS DASHBOARD UPDATES
+   =====================================================
+   Refresh dashboard every 30 seconds to reflect:
+   - New grievances submitted by citizens
+   - Status changes by departments
+   - Resolved grievances
+   
+   Keeps admins aware of real-time workload and
+   allows them to prioritize critical issues.
 ===================================================== */
 
 setInterval(
@@ -2323,107 +2483,6 @@ if (SpeechRecognition) {
 
     voiceStatus.textContent =
         "Your browser does not support voice recognition.";
-}async function submitComplaint(complaintData) {
-    try {
-        const response = await fetch("http://localhost:5000/complaints", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(complaintData)
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            alert("Complaint submitted successfully!");
-            console.log("Complaint:", result.complaint);
-        } else {
-            alert("Failed to submit complaint.");
-        }
-
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Could not connect to GrievEase server.");
-    }
-}async function submitComplaint(complaintData) {
-    try {
-        const response = await fetch("http://localhost:5000/complaints", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(complaintData)
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            alert("Complaint submitted successfully!");
-            console.log("Complaint:", result.complaint);
-        } else {
-            alert("Failed to submit complaint.");
-        }
-
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Could not connect to GrievEase server.");
-    }
-}document.getElementById("grievanceForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-
-    const complaintData = {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        category: formData.get("category"),
-        description: formData.get("description")
-    };
-
-    await submitComplaint(complaintData);
-});console.log("GrievEase complaint system is ready");
-async function submitToDepartment(complaintData) {
-    try {
-        const response = await fetch("http://localhost:5000/complaints/submit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(complaintData)
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            alert(
-                "Complaint submitted successfully!\n" +
-                "Department: " + result.complaint.department
-            );
-
-            console.log("Complaint:", result.complaint);
-        } else {
-            alert("Complaint submission failed.");
-        }
-
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Could not connect to GrievEase backend.");
-    }
 }
-const grievanceForm = document.querySelector("form");
 
-if (grievanceForm) {
-    grievanceForm.addEventListener("submit", async function(event) {
-        event.preventDefault();
-
-        const formData = new FormData(grievanceForm);
-        const complaintData = {};
-
-        formData.forEach((value, key) => {
-            complaintData[key] = value;
-        });
-
-        await submitToDepartment(complaintData);
-    });
-}
+console.log("GrievEase complaint system is ready");

@@ -421,6 +421,7 @@
                 <input
                     type="text"
                     id="studentName"
+                    name="name"
                     placeholder="Enter your name"
                     required
                 >
@@ -437,7 +438,7 @@
                     Language
                 </label>
 
-                <select id="language">
+                <select id="language" name="language">
 
                     <option value="English">
                         English
@@ -475,6 +476,7 @@
 
                 <select
                     id="category"
+                    name="category"
                     required
                 >
 
@@ -531,6 +533,7 @@
                 <input
                     type="text"
                     id="problemTitle"
+                    name="title"
                     placeholder="Example: Large pothole near main gate"
                     required
                 >
@@ -549,6 +552,7 @@
 
                 <textarea
                     id="description"
+                    name="description"
                     rows="6"
                     minlength="20"
                     placeholder="Please describe the problem in detail. Include location, how long it has existed and how it affects people."
@@ -653,6 +657,8 @@
                     id="photoPreviewContainer"
                     class="photo-preview-container"
                 >
+
+                    <input type="hidden" id="locationValue" name="location">
 
                     <img
                         id="photoPreview"
